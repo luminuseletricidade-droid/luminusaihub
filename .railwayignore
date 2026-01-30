@@ -1,0 +1,7 @@
+backend/
+supabase/
+docs/
+*.md
+.git/
+.gitignore
+README.md

@@ -1,0 +1,159 @@
+/* Estilos para o editor de documentos */
+.document-editor .ql-editor {
+  min-height: 500px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.document-editor .ql-editor h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-top: 0;
+  color: #1a1a1a;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 10px;
+}
+
+.document-editor .ql-editor h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #2c2c2c;
+}
+
+.document-editor .ql-editor h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #3c3c3c;
+}
+
+.document-editor .ql-editor p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.document-editor .ql-editor table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.document-editor .ql-editor table th,
+.document-editor .ql-editor table td {
+  border: 1px solid #d1d5db;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.document-editor .ql-editor table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+
+.document-editor .ql-editor table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.document-editor .ql-editor ul,
+.document-editor .ql-editor ol {
+  margin: 15px 0;
+  padding-left: 30px;
+}
+
+.document-editor .ql-editor li {
+  margin-bottom: 8px;
+}
+
+.document-editor .ql-toolbar {
+  border-radius: 8px 8px 0 0;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.document-editor .ql-container {
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+}
+
+/* Estilos para visualização (não editável) */
+.document-viewer {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.document-viewer h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-top: 0;
+  color: #1a1a1a;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 10px;
+}
+
+.document-viewer h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: #2c2c2c;
+}
+
+.document-viewer h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #3c3c3c;
+}
+
+.document-viewer p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.document-viewer table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.document-viewer table th,
+.document-viewer table td {
+  border: 1px solid #d1d5db;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.document-viewer table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+
+.document-viewer table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.document-viewer ul,
+.document-viewer ol {
+  margin: 15px 0;
+  padding-left: 30px;
+}
+
+.document-viewer li {
+  margin-bottom: 8px;
+}
+
+.document-viewer strong,
+.document-viewer b {
+  font-weight: 600;
+}

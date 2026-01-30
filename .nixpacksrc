@@ -1,0 +1,6 @@
+# Nixpacks configuration to force clean builds
+{
+  "cache": false,
+  "buildCommand": "bun run build",
+  "startCommand": "bun run start"
+}

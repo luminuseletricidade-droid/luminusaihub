@@ -1,0 +1,59 @@
+
+project_id = "asdvxynilrurillrhsyj"
+
+[functions.extract-contract-data]
+verify_jwt = true
+
+[functions.generate-maintenance-plan]
+verify_jwt = true
+
+[functions.generate-technical-schedules]
+verify_jwt = true
+
+[functions.generate-excel-reports]
+verify_jwt = true
+
+[functions.smart-chat]
+verify_jwt = true
+
+[functions.process-contracts]
+verify_jwt = true
+
+[functions.vision-processor]
+verify_jwt = true
+
+[functions.langextract-processor]
+verify_jwt = true
+
+[functions.gemini-files-ask]
+verify_jwt = true
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+
+[studio]
+enabled = true
+port = 54323
+
+
+[storage]
+enabled = true
+file_size_limit = "500MiB"
+
+[auth]
+enabled = true
+site_url = "http://127.0.0.1:3000"
+additional_redirect_urls = ["https://127.0.0.1:3000"]
+jwt_expiry = 3600
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true

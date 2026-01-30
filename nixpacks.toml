@@ -1,0 +1,18 @@
+# Frontend Service Configuration - Clean Build
+[phases.setup]
+nixPkgs = ["nodejs-18_x", "bun"]
+
+[phases.install]
+cmds = [
+  "bun pm cache rm",
+  "rm -rf node_modules dist",
+  "bun install --force"
+]
+
+[phases.build]
+cmds = [
+  "bun run build:clean"
+]
+
+[start]
+cmd = "bun run start"
