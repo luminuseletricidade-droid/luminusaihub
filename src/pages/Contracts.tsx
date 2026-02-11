@@ -1746,7 +1746,7 @@ const Contracts = () => {
 
       {/* Contract Upload Dialog */}
       <Dialog open={showUpload} onOpenChange={setShowUpload}>
-        <DialogContent className="max-w-4xl">
+        <DialogContent className="w-[95vw] max-w-4xl">
           <DialogHeader>
             <DialogTitle>Upload de Contrato</DialogTitle>
           </DialogHeader>
@@ -1763,7 +1763,7 @@ const Contracts = () => {
         setShowChat(false);
       }
     }}>
-        <DialogContent className="max-w-7xl max-h-[90vh] overflow-hidden">
+        <DialogContent className="w-[95vw] max-w-7xl max-h-[90vh] overflow-hidden">
           {selectedContract && <>
               <DialogHeader>
                 <div className="flex items-center justify-between">
@@ -1909,7 +1909,7 @@ const Contracts = () => {
       </AlertDialog>
 
       {chatContract && <Dialog open={!!chatContract} onOpenChange={() => setChatContract(null)}>
-          <DialogContent className="max-w-6xl max-h-[90vh] p-0">
+          <DialogContent className="w-[95vw] max-w-6xl max-h-[90vh] p-0">
             <DialogHeader className="sr-only">
               <DialogTitle>Chat IA - {chatContract.contract_number}</DialogTitle>
               <DialogDescription>Interface de chat com IA para o contrato {chatContract.contract_number}</DialogDescription>

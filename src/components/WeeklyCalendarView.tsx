@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { format, startOfWeek, addDays, isSameDay, isToday } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock, User } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Clock, User, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useMobileViewport } from '@/lib/mobile';
 
 interface CalendarEvent {
   id: string;
@@ -30,8 +32,18 @@ const WeeklyCalendarView: React.FC<WeeklyCalendarViewProps> = ({
   onEventClick,
   onTimeSlotDoubleClick
 }) => {
+  const { isMobile } = useMobileViewport();
+  const [mobileOffset, setMobileOffset] = useState(0);
+  const MOBILE_DAYS = 3;
+
   const weekStart = startOfWeek(selectedDate, { weekStartsOn: 0 });
-  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+  const allWeekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
+
+  // On mobile, show 3 days at a time with navigation
+  const visibleDays = isMobile
+    ? allWeekDays.slice(mobileOffset, mobileOffset + MOBILE_DAYS)
+    : allWeekDays;
+  const gridCols = isMobile ? MOBILE_DAYS + 1 : 8; // +1 for hour column
   
   const hours = Array.from({ length: 17 }, (_, i) => i + 6); // 6:00 to 22:00
   
@@ -75,14 +87,38 @@ const WeeklyCalendarView: React.FC<WeeklyCalendarViewProps> = ({
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="text-lg">Visualização Semanal</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg">Visualização Semanal</CardTitle>
+          {isMobile && (
+            <div className="flex items-center gap-1">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                onClick={() => setMobileOffset(o => Math.max(0, o - MOBILE_DAYS))}
+                disabled={mobileOffset === 0}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                onClick={() => setMobileOffset(o => Math.min(7 - MOBILE_DAYS, o + MOBILE_DAYS))}
+                disabled={mobileOffset >= 7 - MOBILE_DAYS}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+        </div>
       </CardHeader>
       <CardContent>
         <div className="relative">
           {/* Header with days */}
-          <div className="grid grid-cols-8 gap-px mb-2">
+          <div className={`grid gap-px mb-2`} style={{ gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}>
             <div className="text-xs font-medium text-muted-foreground p-2">Hora</div>
-            {weekDays.map((day, index) => (
+            {visibleDays.map((day, index) => (
               <div 
                 key={index} 
                 className={`text-xs font-medium p-2 text-center rounded ${
@@ -114,11 +150,11 @@ const WeeklyCalendarView: React.FC<WeeklyCalendarViewProps> = ({
             )}
 
             {hours.map((hour) => (
-              <div key={hour} className="grid grid-cols-8 border-b border-border last:border-b-0">
+              <div key={hour} className="border-b border-border last:border-b-0" style={{ display: 'grid', gridTemplateColumns: `repeat(${gridCols}, minmax(0, 1fr))` }}>
                 <div className="text-xs text-muted-foreground p-2 border-r border-border bg-muted/30">
                   {hour.toString().padStart(2, '0')}:00
                 </div>
-                {weekDays.map((day, dayIndex) => {
+                {visibleDays.map((day, dayIndex) => {
                   const dayEvents = getEventsForDateAndHour(day, hour);
                   return (
                     <div 

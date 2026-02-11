@@ -28,6 +28,9 @@ Luminus AI Hub is a contract and maintenance management platform for the power-g
 - [Testing Strategy](testing.md) — Existing coverage, gaps, and recommendations
 - [Deployment](deployment.md) — Railway, Nixpacks, and Supabase deployment notes
 
+### Guias para Iniciantes
+- **[Setup Completo do Zero](setup-completo.md)** — Guia passo a passo para configurar toda a infraestrutura (banco, backend, frontend) do zero, ideal para quem nunca trabalhou com o Luminus
+
 ## Quick Start
 
 ### Prerequisites

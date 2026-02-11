@@ -27,8 +27,8 @@ export class ContractErrorBoundary extends React.Component<ErrorBoundaryProps, E
     console.error('Contract Error Boundary caught an error:', error, errorInfo);
 
     // Log to monitoring service if available
-    if (window.gtag) {
-      window.gtag('event', 'exception', {
+    if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'exception', {
         description: error.toString(),
         fatal: false,
         error: {

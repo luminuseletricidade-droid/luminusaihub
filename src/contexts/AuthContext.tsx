@@ -95,15 +95,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               // Keep the local session until explicit logout or real error
             }
           } catch (error: unknown) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
             // Only clear on actual authorization errors
-            if (error.message?.includes('Session expired') || error.message?.includes('401')) {
+            if (errorMessage.includes('Session expired') || errorMessage.includes('401')) {
               console.log('Token expired, clearing session');
               setUser(null);
               setSession(null);
               localStorage.removeItem('auth_token');
               localStorage.removeItem('user_data');
             } else {
-              console.log('Network error during validation, keeping local session:', error.message);
+              console.log('Network error during validation, keeping local session:', errorMessage);
               // Keep local session on network errors
             }
           }
@@ -166,10 +167,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { error: { message: response.error || 'Registration failed' } };
       }
     } catch (error: unknown) {
-      return { 
-        error: { 
-          message: error.detail || error.message || 'Registration failed' 
-        } 
+      const err = error instanceof Error ? error : { message: String(error), detail: undefined };
+      return {
+        error: {
+          message: (err as any).detail || err.message || 'Registration failed'
+        }
       };
     }
   };
@@ -219,10 +221,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { error: { message: response.error || 'Login failed' } };
       }
     } catch (error: unknown) {
-      return { 
-        error: { 
-          message: error.detail || error.message || 'Login failed' 
-        } 
+      const err = error instanceof Error ? error : { message: String(error), detail: undefined };
+      return {
+        error: {
+          message: (err as any).detail || err.message || 'Login failed'
+        }
       };
     }
   };

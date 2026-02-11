@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationEllipsis,
+} from '@/components/ui/pagination';
+import { formatDateSafe } from '@/utils/formatters';
+import {
   ListChecks,
   AlertTriangle,
   CheckCircle,
@@ -155,7 +163,7 @@ const Reports = () => {
         if (!contract) return;
 
         const status = mapDbStatusToAppStatus(m.status, m.scheduled_date);
-        const date = m.scheduled_date ? new Date(m.scheduled_date).toLocaleDateString('pt-BR') : null;
+        const date = m.scheduled_date ? formatDateSafe(m.scheduled_date) : null;
 
         const maintenanceItem: MaintenanceItem = {
           id: m.id,
@@ -867,6 +875,21 @@ const Reports = () => {
     { value: 'PENDENTE', label: 'Pendentes', icon: <Hourglass className="mr-2 h-4 w-4" />, activeColor: 'bg-gray-500 text-white', inactiveColor: 'bg-gray-50 text-gray-600 hover:bg-gray-100' },
   ];
 
+  // Pagination state for task cards
+  const ITEMS_PER_PAGE = 12;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedStatus, selectedYear, selectedMonth, selectedTechnician, selectedRegion]);
+
+  const totalPages = Math.ceil(filteredTasks.length / ITEMS_PER_PAGE);
+  const paginatedTasks = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredTasks.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [filteredTasks, currentPage]);
+
   const chartYear = selectedYear !== 'ALL' ? parseInt(selectedYear) : new Date().getFullYear();
   const chartMonth = selectedMonth !== 'ALL' ? parseInt(selectedMonth) : new Date().getMonth();
   const monthName = new Date(chartYear, chartMonth).toLocaleString('pt-BR', { month: 'long' });
@@ -943,7 +966,7 @@ const Reports = () => {
       </div>
 
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6">
         <KPI title="Total de Tarefas" value={kpis.total} icon={<ListChecks className="h-8 w-8 text-gray-500" />} />
         <KPI title="Atrasadas" value={kpis.late} icon={<AlertTriangle className="h-8 w-8 text-red-500" />} />
         <KPI title="Em Dia" value={kpis.onSchedule} icon={<CheckCircle className="h-8 w-8 text-green-500" />} />
@@ -1014,25 +1037,80 @@ const Reports = () => {
           ))}
         </div>
 
-        <div className="overflow-x-auto">
-          <div className="min-w-full grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))' }}>
-            {filteredTasks.length > 0 ? (
-              filteredTasks.map(task => (
-                <MaintenanceTaskCard
-                  key={task.id}
-                  task={task}
-                  activeFilter={selectedStatus}
-                  selectedYear={selectedYear}
-                  selectedMonth={selectedMonth}
-                />
-              ))
-            ) : (
-              <div className="col-span-full text-center py-12">
-                <p className="text-gray-500">Nenhuma tarefa encontrada com os seus critérios.</p>
-              </div>
-            )}
-          </div>
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {paginatedTasks.length > 0 ? (
+            paginatedTasks.map(task => (
+              <MaintenanceTaskCard
+                key={task.id}
+                task={task}
+                activeFilter={selectedStatus}
+                selectedYear={selectedYear}
+                selectedMonth={selectedMonth}
+              />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-12">
+              <p className="text-gray-500">Nenhuma tarefa encontrada com os seus critérios.</p>
+            </div>
+          )}
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+            <p className="text-sm text-gray-500">
+              Mostrando {((currentPage - 1) * ITEMS_PER_PAGE) + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredTasks.length)} de {filteredTasks.length} tarefas
+            </p>
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                  >
+                    Anterior
+                  </PaginationLink>
+                </PaginationItem>
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  let pageNum: number;
+                  if (totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= totalPages - 2) {
+                    pageNum = totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
+                  return (
+                    <PaginationItem key={pageNum}>
+                      <PaginationLink
+                        isActive={currentPage === pageNum}
+                        onClick={() => setCurrentPage(pageNum)}
+                        className="cursor-pointer"
+                      >
+                        {pageNum}
+                      </PaginationLink>
+                    </PaginationItem>
+                  );
+                })}
+                {totalPages > 5 && currentPage < totalPages - 2 && (
+                  <PaginationItem>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                )}
+                <PaginationItem>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                  >
+                    Próxima
+                  </PaginationLink>
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
+        )}
       </div>
     </div>
   );

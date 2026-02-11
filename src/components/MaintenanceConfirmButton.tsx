@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { formatDateSafe } from '@/utils/formatters';
 import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
@@ -93,7 +94,7 @@ export function MaintenanceConfirmButton({
   };
 
   const formattedDate = scheduledDate
-    ? new Date(scheduledDate).toLocaleDateString('pt-BR')
+    ? formatDateSafe(scheduledDate)
     : 'data não definida';
 
   return (

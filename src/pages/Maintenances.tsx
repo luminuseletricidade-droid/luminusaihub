@@ -55,6 +55,14 @@ import { MaintenancesSkeleton } from "@/components/LoadingStates";
 import { useMaintenanceFilters } from "@/hooks/useMaintenanceFilters";
 import { useMaintenanceSync } from "@/hooks/useMaintenanceSync";
 import { useMaintenanceStatusSync } from "@/hooks/useMaintenanceStatusSync";
+import { useMobileViewport } from "@/lib/mobile";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationEllipsis,
+} from "@/components/ui/pagination";
 
 interface Service {
   id: string;
@@ -157,7 +165,10 @@ const Maintenances = () => {
 
   // Auto-sync de status atrasados
   useMaintenanceStatusSync();
+  const { isMobile } = useMobileViewport();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 20;
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [maintenances, setMaintenances] = useState<Maintenance[]>([]);
@@ -1044,7 +1055,7 @@ const Maintenances = () => {
               <DialogTitle>Agendar Nova Manutenção</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Cliente *</Label>
                   <Select
@@ -1145,7 +1156,7 @@ const Maintenances = () => {
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Tipo de Manutenção *</Label>
                   <Select
@@ -1213,7 +1224,7 @@ const Maintenances = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="scheduled_time">Horário Início *</Label>
                   <Input
@@ -1415,264 +1426,297 @@ const Maintenances = () => {
                 {!searchTerm && "Comece agendando sua primeira manutenção"}
               </p>
             </div>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID/Cliente</TableHead>
-                  <TableHead>Tipo</TableHead>
-                  <TableHead>Serviços do Contrato</TableHead>
-                  <TableHead>Data Agendada</TableHead>
-                  <TableHead>Técnico</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Ações</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredMaintenances.map((maintenance) => {
-                  const scheduledDateTime = getScheduledDateTime(maintenance);
-                  const now = new Date();
-                  const isPastSchedule = scheduledDateTime ? scheduledDateTime.getTime() < now.getTime() : false;
-                  const pendingDisabled = isPastSchedule && maintenance.status !== "pending";
-                  const overdueDisabled = !isPastSchedule && maintenance.status !== "overdue";
+          ) : (() => {
+            const totalPages = Math.ceil(filteredMaintenances.length / ITEMS_PER_PAGE);
+            const paginatedItems = filteredMaintenances.slice(
+              (currentPage - 1) * ITEMS_PER_PAGE,
+              currentPage * ITEMS_PER_PAGE
+            );
 
-                  return (
-                    <TableRow
-                    key={maintenance.id}
-                    className="hover:bg-muted/50 cursor-pointer"
-                  >
-                    <TableCell>
-                      <div>
-                        <div className="font-medium">
-                          {maintenance.contract_number || "Não informado"}
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          {maintenance.client_name}
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Select
-                        value={maintenance.maintenance_type}
-                        onValueChange={async (value) => {
-                          // Atualizar tipo clicável
-                          try {
-                            const { error } = await supabase
-                              .from("maintenances")
-                              .update({ type: value })
-                              .eq("id", maintenance.id);
-
-                            if (error) throw error;
-
-                            setMaintenances((prev) =>
-                              prev.map((m) =>
-                                m.id === maintenance.id
-                                  ? {
-                                      ...m,
-                                      maintenance_type: value,
-                                      type: value,
-                                    }
-                                  : m,
-                              ),
-                            );
-
-                            toast({
-                              title: "Tipo atualizado",
-                              description: `Tipo alterado para: ${value}`,
-                            });
-                          } catch (error) {
-                            console.error("Erro ao atualizar tipo:", error);
-                            toast({
-                              title: "Erro",
-                              description: "Não foi possível atualizar o tipo.",
-                              variant: "destructive",
-                            });
-                          }
-                        }}
-                      >
-                        <SelectTrigger className="w-auto border-none bg-transparent p-0 h-auto">
-                          <Badge
-                            variant="outline"
-                            className="cursor-pointer hover:bg-muted"
-                          >
-                            {maintenance.maintenance_type}
-                          </Badge>
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Manutenção Preventiva 250h">Manutenção Preventiva 250h</SelectItem>
-                          <SelectItem value="Manutenção Preventiva 500h">Manutenção Preventiva 500h</SelectItem>
-                          <SelectItem value="Manutenção Mensal">Manutenção Mensal</SelectItem>
-                          <SelectItem value="Manutenção Corretiva">Manutenção Corretiva</SelectItem>
-                          <SelectItem value="Atendimento Emergencial">Atendimento Emergencial</SelectItem>
-                          <SelectItem value="Teste de Carga / Operação Assistida de Partida">Teste de Carga / Operação Assistida de Partida</SelectItem>
-                          <SelectItem value="Startup / Comissionamento">Startup / Comissionamento</SelectItem>
-                          <SelectItem value="Avarias de Controlador">Avarias de Controlador</SelectItem>
-                          <SelectItem value="Visita Técnica Orçamentária">Visita Técnica Orçamentária</SelectItem>
-                          <SelectItem value="Visita Técnica de Inspeção">Visita Técnica de Inspeção</SelectItem>
-                          <SelectItem value="Inspeção de Alternador">Inspeção de Alternador</SelectItem>
-                          <SelectItem value="Limpeza de Radiador">Limpeza de Radiador</SelectItem>
-                          <SelectItem value="Instalação de Equipamentos">Instalação de Equipamentos</SelectItem>
-                          <SelectItem value="Instalação de GMG – Próprio (permanente)">Instalação de GMG – Próprio (permanente)</SelectItem>
-                          <SelectItem value="Limpeza de Tanque">Limpeza de Tanque</SelectItem>
-                          <SelectItem value="Troca de Bateria">Troca de Bateria</SelectItem>
-                          <SelectItem value="Manutenção Mensal (complementar)">Manutenção Mensal (complementar)</SelectItem>
-                          <SelectItem value="Regulagem de Válvulas">Regulagem de Válvulas</SelectItem>
-                          <SelectItem value="Revisão/Calibração de Bomba Injetora">Revisão/Calibração de Bomba Injetora</SelectItem>
-                          <SelectItem value="Entrega/Retirada de GMG">Entrega/Retirada de GMG</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </TableCell>
-                    <TableCell>
-                      <div className="max-w-xs">
-                        {maintenance.contract_services &&
-                        maintenance.contract_services.length > 0 ? (
-                          <div className="space-y-1">
-                            {maintenance.contract_services
-                              .slice(0, 2)
-                              .map((service, index) => (
-                                <Badge
-                                  key={service.id}
-                                  variant="secondary"
-                                  className="text-xs mr-1 mb-1"
-                                >
-                                  {service.service_name}
-                                </Badge>
-                              ))}
-                            {maintenance.contract_services.length > 2 && (
-                              <ServiceDetailsModal
-                                services={maintenance.contract_services}
-                                contractNumber={maintenance.contract_number || "Não informado"}
+            return (
+              <>
+                {isMobile ? (
+                  /* Mobile card view */
+                  <div className="space-y-3">
+                    {paginatedItems.map((maintenance) => {
+                      const scheduledDateTime = getScheduledDateTime(maintenance);
+                      const now = new Date();
+                      return (
+                        <Card key={maintenance.id} className="border-l-4 border-l-primary/50">
+                          <CardContent className="p-4">
+                            <div className="flex items-start justify-between mb-2">
+                              <div className="flex-1 min-w-0">
+                                <p className="font-medium text-sm truncate">
+                                  {maintenance.contract_number || "S/N"}
+                                </p>
+                                <p className="text-xs text-muted-foreground truncate">
+                                  {maintenance.client_name}
+                                </p>
+                              </div>
+                              {getStatusBadge(maintenance.status)}
+                            </div>
+                            <div className="grid grid-cols-2 gap-2 text-xs mt-3">
+                              <div>
+                                <span className="text-muted-foreground">Tipo:</span>
+                                <p className="font-medium truncate">{maintenance.maintenance_type}</p>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">Data:</span>
+                                <p className="font-medium">{formatDate(maintenance.scheduled_date)}</p>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">Técnico:</span>
+                                <p className="font-medium truncate">{maintenance.technician || "—"}</p>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">Horário:</span>
+                                <p className="font-medium">{maintenance.scheduled_time}</p>
+                              </div>
+                            </div>
+                            <div className="flex gap-2 mt-3">
+                              <MaintenanceKanbanCard
+                                maintenance={maintenance}
+                                onUpdate={(updated) => {
+                                  setMaintenances(prev =>
+                                    prev.map(m => m.id === (updated as Maintenance).id ? updated as Maintenance : m)
+                                  );
+                                  loadMaintenances();
+                                }}
                               >
-                                <Badge
-                                  variant="outline"
-                                  className="text-xs cursor-pointer hover:bg-muted"
+                                <Button size="sm" variant="outline" className="flex-1">
+                                  <Edit3 className="h-3 w-3 mr-1" />
+                                  Editar
+                                </Button>
+                              </MaintenanceKanbanCard>
+                              {maintenance.status === "pending" && (
+                                <Button
+                                  size="sm"
+                                  onClick={() => updateStatus(maintenance.id, "in_progress")}
+                                  className="flex-1 bg-primary hover:bg-primary/90"
                                 >
-                                  +{maintenance.contract_services.length - 2}{" "}
-                                  mais
-                                </Badge>
-                              </ServiceDetailsModal>
-                            )}
-                          </div>
-                        ) : (
-                          <span className="text-sm text-muted-foreground">
-                            Nenhum serviço mapeado
-                          </span>
-                        )}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div>
-                        <div>{(() => {
-                          console.log('🔍 [DISPLAY] Formatando data na tabela:', {
-                            id: maintenance.id,
-                            scheduled_date_raw: maintenance.scheduled_date,
-                            scheduled_date_type: typeof maintenance.scheduled_date,
-                            formatted: formatDate(maintenance.scheduled_date)
-                          });
-                          return formatDate(maintenance.scheduled_date);
-                        })()}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {maintenance.scheduled_time}
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>{maintenance.technician}</TableCell>
-                    <TableCell>
-                      <Select
-                        value={maintenance.status}
-                        onValueChange={(value: unknown) =>
-                          updateStatus(maintenance.id, value)
-                        }
-                      >
-                        <SelectTrigger className="w-auto border-none bg-transparent p-0 h-auto">
-                          <div className="cursor-pointer hover:bg-muted rounded p-1">
-                            {getStatusBadge(maintenance.status)}
-                          </div>
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="pending" disabled={pendingDisabled}>
-                            <div className="flex items-center space-x-2">
-                              <Clock className="h-3 w-3" />
-                              <span>Pendente</span>
+                                  Iniciar
+                                </Button>
+                              )}
+                              {maintenance.status === "in_progress" && (
+                                <Button
+                                  size="sm"
+                                  onClick={() => updateStatus(maintenance.id, "completed")}
+                                  className="flex-1 bg-green-600 hover:bg-green-700"
+                                >
+                                  Concluir
+                                </Button>
+                              )}
                             </div>
-                          </SelectItem>
-                          <SelectItem value="in_progress">
-                            <div className="flex items-center space-x-2">
-                              <Wrench className="h-3 w-3" />
-                              <span>Em Andamento</span>
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="completed">
-                            <div className="flex items-center space-x-2">
-                              <CheckCircle className="h-3 w-3" />
-                              <span>Concluída</span>
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="overdue" disabled={overdueDisabled}>
-                            <div className="flex items-center space-x-2">
-                              <XCircle className="h-3 w-3" />
-                              <span>Atrasada</span>
-                            </div>
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex space-x-2">
-                        <MaintenanceKanbanCard
-                          maintenance={maintenance}
-                          onUpdate={(updated) => {
-                            // Atualizar estado local imediatamente para UI responsiva
-                            setMaintenances(prev =>
-                              prev.map(m => m.id === (updated as Maintenance).id ? updated as Maintenance : m)
-                            );
-                            // Recarregar dados do backend para sincronização completa
-                            loadMaintenances();
-                            toast({
-                              title: "Manutenção atualizada",
-                              description:
-                                "As alterações foram sincronizadas automaticamente.",
-                            });
-                          }}
-                        >
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="hover:bg-primary hover:text-primary-foreground"
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  /* Desktop table view */
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>ID/Cliente</TableHead>
+                        <TableHead>Tipo</TableHead>
+                        <TableHead>Serviços do Contrato</TableHead>
+                        <TableHead>Data Agendada</TableHead>
+                        <TableHead>Técnico</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Ações</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {paginatedItems.map((maintenance) => {
+                        const scheduledDateTime = getScheduledDateTime(maintenance);
+                        const now = new Date();
+                        const isPastSchedule = scheduledDateTime ? scheduledDateTime.getTime() < now.getTime() : false;
+                        const pendingDisabled = isPastSchedule && maintenance.status !== "pending";
+                        const overdueDisabled = !isPastSchedule && maintenance.status !== "overdue";
+
+                        return (
+                          <TableRow key={maintenance.id} className="hover:bg-muted/50 cursor-pointer">
+                            <TableCell>
+                              <div>
+                                <div className="font-medium">{maintenance.contract_number || "Não informado"}</div>
+                                <div className="text-sm text-muted-foreground">{maintenance.client_name}</div>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <Select
+                                value={maintenance.maintenance_type}
+                                onValueChange={async (value) => {
+                                  try {
+                                    const { error } = await supabase
+                                      .from("maintenances")
+                                      .update({ type: value })
+                                      .eq("id", maintenance.id);
+                                    if (error) throw error;
+                                    setMaintenances((prev) =>
+                                      prev.map((m) =>
+                                        m.id === maintenance.id ? { ...m, maintenance_type: value, type: value } : m
+                                      )
+                                    );
+                                    toast({ title: "Tipo atualizado", description: `Tipo alterado para: ${value}` });
+                                  } catch (error) {
+                                    console.error("Erro ao atualizar tipo:", error);
+                                    toast({ title: "Erro", description: "Não foi possível atualizar o tipo.", variant: "destructive" });
+                                  }
+                                }}
+                              >
+                                <SelectTrigger className="w-auto border-none bg-transparent p-0 h-auto">
+                                  <Badge variant="outline" className="cursor-pointer hover:bg-muted">{maintenance.maintenance_type}</Badge>
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="Manutenção Preventiva 250h">Manutenção Preventiva 250h</SelectItem>
+                                  <SelectItem value="Manutenção Preventiva 500h">Manutenção Preventiva 500h</SelectItem>
+                                  <SelectItem value="Manutenção Mensal">Manutenção Mensal</SelectItem>
+                                  <SelectItem value="Manutenção Corretiva">Manutenção Corretiva</SelectItem>
+                                  <SelectItem value="Atendimento Emergencial">Atendimento Emergencial</SelectItem>
+                                  <SelectItem value="Teste de Carga / Operação Assistida de Partida">Teste de Carga / Operação Assistida de Partida</SelectItem>
+                                  <SelectItem value="Startup / Comissionamento">Startup / Comissionamento</SelectItem>
+                                  <SelectItem value="Avarias de Controlador">Avarias de Controlador</SelectItem>
+                                  <SelectItem value="Visita Técnica Orçamentária">Visita Técnica Orçamentária</SelectItem>
+                                  <SelectItem value="Visita Técnica de Inspeção">Visita Técnica de Inspeção</SelectItem>
+                                  <SelectItem value="Inspeção de Alternador">Inspeção de Alternador</SelectItem>
+                                  <SelectItem value="Limpeza de Radiador">Limpeza de Radiador</SelectItem>
+                                  <SelectItem value="Instalação de Equipamentos">Instalação de Equipamentos</SelectItem>
+                                  <SelectItem value="Instalação de GMG – Próprio (permanente)">Instalação de GMG – Próprio (permanente)</SelectItem>
+                                  <SelectItem value="Limpeza de Tanque">Limpeza de Tanque</SelectItem>
+                                  <SelectItem value="Troca de Bateria">Troca de Bateria</SelectItem>
+                                  <SelectItem value="Manutenção Mensal (complementar)">Manutenção Mensal (complementar)</SelectItem>
+                                  <SelectItem value="Regulagem de Válvulas">Regulagem de Válvulas</SelectItem>
+                                  <SelectItem value="Revisão/Calibração de Bomba Injetora">Revisão/Calibração de Bomba Injetora</SelectItem>
+                                  <SelectItem value="Entrega/Retirada de GMG">Entrega/Retirada de GMG</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </TableCell>
+                            <TableCell>
+                              <div className="max-w-xs">
+                                {maintenance.contract_services && maintenance.contract_services.length > 0 ? (
+                                  <div className="space-y-1">
+                                    {maintenance.contract_services.slice(0, 2).map((service) => (
+                                      <Badge key={service.id} variant="secondary" className="text-xs mr-1 mb-1">{service.service_name}</Badge>
+                                    ))}
+                                    {maintenance.contract_services.length > 2 && (
+                                      <ServiceDetailsModal services={maintenance.contract_services} contractNumber={maintenance.contract_number || "Não informado"}>
+                                        <Badge variant="outline" className="text-xs cursor-pointer hover:bg-muted">+{maintenance.contract_services.length - 2} mais</Badge>
+                                      </ServiceDetailsModal>
+                                    )}
+                                  </div>
+                                ) : (
+                                  <span className="text-sm text-muted-foreground">Nenhum serviço mapeado</span>
+                                )}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div>
+                                <div>{formatDate(maintenance.scheduled_date)}</div>
+                                <div className="text-xs text-muted-foreground">{maintenance.scheduled_time}</div>
+                              </div>
+                            </TableCell>
+                            <TableCell>{maintenance.technician}</TableCell>
+                            <TableCell>
+                              <Select
+                                value={maintenance.status}
+                                onValueChange={(value: unknown) => updateStatus(maintenance.id, value)}
+                              >
+                                <SelectTrigger className="w-auto border-none bg-transparent p-0 h-auto">
+                                  <div className="cursor-pointer hover:bg-muted rounded p-1">{getStatusBadge(maintenance.status)}</div>
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="pending" disabled={pendingDisabled}>
+                                    <div className="flex items-center space-x-2"><Clock className="h-3 w-3" /><span>Pendente</span></div>
+                                  </SelectItem>
+                                  <SelectItem value="in_progress">
+                                    <div className="flex items-center space-x-2"><Wrench className="h-3 w-3" /><span>Em Andamento</span></div>
+                                  </SelectItem>
+                                  <SelectItem value="completed">
+                                    <div className="flex items-center space-x-2"><CheckCircle className="h-3 w-3" /><span>Concluída</span></div>
+                                  </SelectItem>
+                                  <SelectItem value="overdue" disabled={overdueDisabled}>
+                                    <div className="flex items-center space-x-2"><XCircle className="h-3 w-3" /><span>Atrasada</span></div>
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex space-x-2">
+                                <MaintenanceKanbanCard
+                                  maintenance={maintenance}
+                                  onUpdate={(updated) => {
+                                    setMaintenances(prev =>
+                                      prev.map(m => m.id === (updated as Maintenance).id ? updated as Maintenance : m)
+                                    );
+                                    loadMaintenances();
+                                    toast({ title: "Manutenção atualizada", description: "As alterações foram sincronizadas automaticamente." });
+                                  }}
+                                >
+                                  <Button size="sm" variant="outline" className="hover:bg-primary hover:text-primary-foreground">
+                                    <Edit3 className="h-3 w-3" />
+                                  </Button>
+                                </MaintenanceKanbanCard>
+                                {maintenance.status === "pending" && (
+                                  <Button size="sm" onClick={() => updateStatus(maintenance.id, "in_progress")} className="bg-primary hover:bg-primary/90">Iniciar</Button>
+                                )}
+                                {maintenance.status === "in_progress" && (
+                                  <Button size="sm" onClick={() => updateStatus(maintenance.id, "completed")} className="bg-green-600 hover:bg-green-700">Concluir</Button>
+                                )}
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                )}
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4">
+                    <p className="text-sm text-muted-foreground">
+                      Mostrando {((currentPage - 1) * ITEMS_PER_PAGE) + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filteredMaintenances.length)} de {filteredMaintenances.length}
+                    </p>
+                    <Pagination>
+                      <PaginationContent>
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                            className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
                           >
-                            <Edit3 className="h-3 w-3" />
-                          </Button>
-                        </MaintenanceKanbanCard>
-                        {maintenance.status === "pending" && (
-                          <Button
-                            size="sm"
-                            onClick={() =>
-                              updateStatus(maintenance.id, "in_progress")
-                            }
-                            className="bg-primary hover:bg-primary/90"
-                          >
-                            Iniciar
-                          </Button>
+                            Anterior
+                          </PaginationLink>
+                        </PaginationItem>
+                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                          let pageNum: number;
+                          if (totalPages <= 5) { pageNum = i + 1; }
+                          else if (currentPage <= 3) { pageNum = i + 1; }
+                          else if (currentPage >= totalPages - 2) { pageNum = totalPages - 4 + i; }
+                          else { pageNum = currentPage - 2 + i; }
+                          return (
+                            <PaginationItem key={pageNum}>
+                              <PaginationLink isActive={currentPage === pageNum} onClick={() => setCurrentPage(pageNum)} className="cursor-pointer">{pageNum}</PaginationLink>
+                            </PaginationItem>
+                          );
+                        })}
+                        {totalPages > 5 && currentPage < totalPages - 2 && (
+                          <PaginationItem><PaginationEllipsis /></PaginationItem>
                         )}
-                        {maintenance.status === "in_progress" && (
-                          <Button
-                            size="sm"
-                            onClick={() =>
-                              updateStatus(maintenance.id, "completed")
-                            }
-                            className="bg-green-600 hover:bg-green-700"
+                        <PaginationItem>
+                          <PaginationLink
+                            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                            className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
                           >
-                            Concluir
-                          </Button>
-                        )}
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          )}
+                            Próxima
+                          </PaginationLink>
+                        </PaginationItem>
+                      </PaginationContent>
+                    </Pagination>
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </CardContent>
       </Card>
     </div>

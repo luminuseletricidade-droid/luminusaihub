@@ -13,6 +13,7 @@ import { NetworkStatusBanner } from "@/components/NetworkStatusBanner";
 // import LoadingSpinner from "./components/common/LoadingSpinner";
 import { Loader2 } from "lucide-react";
 import { setupFetchInterceptor } from "@/utils/apiErrorHandler";
+import { GlobalErrorBoundary } from "@/components/GlobalErrorBoundary";
 
 // Eager load critical pages
 import Index from "./pages/Index";
@@ -80,7 +81,7 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <GlobalErrorBoundary>
       <NetworkStatusBanner />
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
@@ -208,7 +209,7 @@ const App = () => {
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
-    </>
+    </GlobalErrorBoundary>
   );
 };
 
