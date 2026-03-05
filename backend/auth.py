@@ -1,17 +1,26 @@
 """
 Authentication module for PostgreSQL backend
 Handles real authentication with Supabase auth schema
+Supports both direct PostgreSQL and Supabase REST API authentication
 """
 
 import os
 import logging
 import jwt
+import requests
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any
 from fastapi import HTTPException
 from database import get_db
 
 logger = logging.getLogger(__name__)
+
+# Supabase configuration for REST API fallback
+SUPABASE_URL = os.getenv("SUPABASE_URL", "https://jtrhpbgrpsgneleptzgm.supabase.co")
+SUPABASE_ANON_KEY = os.getenv(
+    "SUPABASE_ANON_KEY",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0cmhwYmdycHNnbmVsZXB0emdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyMjU5ODYsImV4cCI6MjA4NTgwMTk4Nn0.cjoswlcAemdJ45-9oKFnPiNn64Wm46-pkvUcI96QX64"
+)
 
 JWT_SECRET = os.getenv("JWT_SECRET", "your-secret-key-here-change-in-production")
 JWT_ALGORITHM = "HS256"
@@ -40,15 +49,63 @@ def verify_token(token: str) -> Optional[Dict]:
     except jwt.PyJWTError:
         return None
 
+def authenticate_via_supabase_api(email: str, password: str) -> Optional[Dict]:
+    """Authenticate user via Supabase REST API"""
+    try:
+        # Use Supabase Auth API
+        response = requests.post(
+            f"{SUPABASE_URL}/auth/v1/token?grant_type=password",
+            headers={
+                "apikey": SUPABASE_ANON_KEY,
+                "Content-Type": "application/json"
+            },
+            json={"email": email, "password": password},
+            timeout=10
+        )
+
+        if response.status_code == 200:
+            data = response.json()
+            user_data = data.get("user", {})
+
+            # Return user info in expected format
+            return {
+                "id": user_data.get("id"),
+                "email": user_data.get("email"),
+                "role": user_data.get("user_metadata", {}).get("role", "user")
+            }
+        else:
+            logger.warning(f"Supabase API auth failed: {response.status_code} - {response.text}")
+            return None
+
+    except Exception as e:
+        logger.error(f"Supabase API authentication error: {e}")
+        return None
+
 def authenticate_user(email: str, password: str) -> Optional[Dict]:
-    """Authenticate user against PostgreSQL"""
+    """
+    Authenticate user with hybrid approach:
+    1. Try Supabase REST API first (works without PostgreSQL connection)
+    2. Fallback to direct PostgreSQL if API fails and DB is available
+    """
+    # Try Supabase API first (preferred method)
+    user = authenticate_via_supabase_api(email, password)
+    if user:
+        logger.info(f"✅ User authenticated via Supabase API: {email}")
+        return user
+
+    # Fallback to PostgreSQL if available
     try:
         db = get_db()
-        user = db.verify_user_credentials(email, password)
-        return user
+        if db.is_connected():
+            user = db.verify_user_credentials(email, password)
+            if user:
+                logger.info(f"✅ User authenticated via PostgreSQL: {email}")
+                return user
     except Exception as e:
-        logger.error(f"Authentication error: {e}")
-        return None
+        logger.warning(f"PostgreSQL authentication fallback failed: {e}")
+
+    logger.error(f"❌ Authentication failed for: {email}")
+    return None
 
 def create_user(email: str, password: str) -> Optional[Dict]:
     """Create new user in PostgreSQL"""

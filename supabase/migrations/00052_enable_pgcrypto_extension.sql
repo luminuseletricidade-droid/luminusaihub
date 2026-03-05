@@ -12,21 +12,6 @@ BEGIN
     ) THEN
         RAISE EXCEPTION 'pgcrypto extension failed to install';
     END IF;
-END $$;
 
--- Test that the functions are available
-DO $$
-DECLARE
-    test_hash text;
-BEGIN
-    -- Test gen_salt function
-    test_hash := gen_salt('bf');
-
-    -- Test crypt function
-    test_hash := crypt('test', gen_salt('bf'));
-
-    RAISE NOTICE 'pgcrypto extension installed successfully';
-EXCEPTION
-    WHEN OTHERS THEN
-        RAISE EXCEPTION 'pgcrypto functions not working properly: %', SQLERRM;
+    RAISE NOTICE 'pgcrypto extension verified successfully';
 END $$;

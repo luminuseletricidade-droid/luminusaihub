@@ -1,0 +1,119 @@
+[
+  {
+    "id": "b478e4e0-b074-4a19-9cc5-e7ef9dc6c6d4",
+    "name": "Chat Assistente Luminus - 2518/2023 - 04/11/2025, 17:08:26",
+    "contract_id": "9aad3826-b0cb-49f9-be52-4a10ab78a1d3",
+    "agent_id": "contract-extractor",
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-11-04T17:08:23.408193-03:00",
+    "updated_at": "2025-11-04T17:08:23.408193-03:00"
+  },
+  {
+    "id": "9147c3eb-5930-43d0-b434-5040e1ca92ba",
+    "name": "Chat Assistente Luminus - CONT-20251106-1762430026064-LTVZ - 06/11/2025, 08:55:15",
+    "contract_id": "89dbfde3-ecd9-4b83-a270-8662b949cd2b",
+    "agent_id": "contract-extractor",
+    "user_id": "2c3080a8-67b8-40e5-88b5-e0a2f9dc9bbc",
+    "created_at": "2025-11-06T08:55:15.630217-03:00",
+    "updated_at": "2025-11-06T08:57:32.003011-03:00"
+  },
+  {
+    "id": "62cd6bb2-c3cb-48e1-a5d3-54dba285cfb6",
+    "name": "Conversa Geral - 06/11/2025, 08:58:26",
+    "contract_id": "ai-agents",
+    "agent_id": "general-conversation",
+    "user_id": "2c3080a8-67b8-40e5-88b5-e0a2f9dc9bbc",
+    "created_at": "2025-11-06T08:58:27.051387-03:00",
+    "updated_at": "2025-11-06T08:58:27.051387-03:00"
+  },
+  {
+    "id": "15126d33-5501-4310-a5c4-ad9b56c54ad1",
+    "name": "Assistente Luminus - 06/11/2025, 08:58:27",
+    "contract_id": "ai-agents",
+    "agent_id": "luminos-assistant",
+    "user_id": "2c3080a8-67b8-40e5-88b5-e0a2f9dc9bbc",
+    "created_at": "2025-11-06T08:58:27.262274-03:00",
+    "updated_at": "2025-11-06T08:58:47.655768-03:00"
+  },
+  {
+    "id": "9ebce0e1-880f-4b6d-a4be-8895f0f50ae4",
+    "name": "Assistente Luminus - 06/11/2025, 08:58:47",
+    "contract_id": "ai-agents",
+    "agent_id": "luminos-assistant",
+    "user_id": "2c3080a8-67b8-40e5-88b5-e0a2f9dc9bbc",
+    "created_at": "2025-11-06T08:58:47.444739-03:00",
+    "updated_at": "2025-11-06T08:59:04.83219-03:00"
+  },
+  {
+    "id": "f9d73c28-56ff-4f0c-9cd9-9e22ed6803b3",
+    "name": "Chat Assistente Luminus - 2552/2023 ARM LOG - LOCAÇÃO GMG 40 KVA - 06/11/2025, 14:44:27",
+    "contract_id": "df074350-2e46-4493-8a46-3b1df7debba5",
+    "agent_id": "contract-extractor",
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-11-06T14:44:24.577971-03:00",
+    "updated_at": "2025-11-06T14:44:50.749215-03:00"
+  },
+  {
+    "id": "1de50fa2-f7e6-4b69-9bc2-ae593094044c",
+    "name": "Chat Assistente Luminus - CONT-20251204-1764868367876-ZYFS - 04/12/2025, 14:17:05",
+    "contract_id": "9b39b558-4680-49b3-970c-f6900e6b06c6",
+    "agent_id": "contract-extractor",
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-12-04T14:17:06.064847-03:00",
+    "updated_at": "2025-12-04T14:18:17.243848-03:00"
+  },
+  {
+    "id": "a0bad9da-15ea-49a5-bf80-f9397eb60e74",
+    "name": "Chat Assistente Luminus - CONT-20251204-1764868367876-ZYFS - 08/12/2025, 13:19:31",
+    "contract_id": "9b39b558-4680-49b3-970c-f6900e6b06c6",
+    "agent_id": "contract-extractor",
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-12-08T13:19:31.763429-03:00",
+    "updated_at": "2025-12-08T13:19:31.763429-03:00"
+  },
+  {
+    "id": "7c68e033-3009-42d8-aaac-bf7ab7b8b50c",
+    "name": "Chat Assistente Luminus - 114/2022 - 15/12/2025, 13:20:26",
+    "contract_id": "6fa65414-dcec-4f39-94a4-510e784b5fed",
+    "agent_id": "contract-extractor",
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-12-15T13:20:26.02741-03:00",
+    "updated_at": "2025-12-15T13:20:26.02741-03:00"
+  },
+  {
+    "id": "1f7b1371-10bf-463b-8db2-0091af754883",
+    "name": "Chat Assistente Luminus - CONT-20251212-1765550969465-I7ZH - 16/12/2025, 13:23:20",
+    "contract_id": "cf71f920-35b9-4dde-aa64-a8254e35df53",
+    "agent_id": "contract-extractor",
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-12-16T13:23:21.438066-03:00",
+    "updated_at": "2025-12-16T13:23:21.438066-03:00"
+  },
+  {
+    "id": "4bd1a6f0-2203-4c81-b1f1-ed1609b9ed69",
+    "name": "Chat Assistente Luminus - 2928/2024 EDIF MARES - 16/12/2025, 14:07:31",
+    "contract_id": "e1ab1262-288b-4be7-b36a-50163d8e6663",
+    "agent_id": "contract-extractor",
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-12-16T14:07:31.272185-03:00",
+    "updated_at": "2025-12-16T14:08:04.267144-03:00"
+  },
+  {
+    "id": "ed0543a9-ede6-487b-badf-468cb7ff9973",
+    "name": "Chat Assistente Luminus - 2423/2022 - 29/12/2025, 13:38:03",
+    "contract_id": "ff86837b-3a72-45b4-a30d-b728fb3054c9",
+    "agent_id": "contract-extractor",
+    "user_id": "c24ccbfe-b964-4c85-8708-0fc86a4e07a8",
+    "created_at": "2025-12-29T13:38:04.104244-03:00",
+    "updated_at": "2025-12-29T13:38:04.104244-03:00"
+  },
+  {
+    "id": "e835f1a4-18f0-4c23-8624-9ead718e1f62",
+    "name": "Chat Assistente Luminus - 2457 - 07/01/2026, 16:32:15",
+    "contract_id": "1b64179b-c190-40cd-9547-c1df80d0aa6e",
+    "agent_id": "contract-extractor",
+    "user_id": "c24ccbfe-b964-4c85-8708-0fc86a4e07a8",
+    "created_at": "2026-01-07T16:32:15.647651-03:00",
+    "updated_at": "2026-01-07T16:32:15.647651-03:00"
+  }
+]

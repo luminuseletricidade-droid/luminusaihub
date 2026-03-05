@@ -23,12 +23,19 @@ from timezone_config import get_postgres_timezone_setting, get_timezone
 logger = logging.getLogger(__name__)
 
 class SupabaseDB:
-    def __init__(self):
+    def __init__(self, auto_connect=False):
         self.connection = None
         self.environment = "production"  # Always use production
         self.default_schema = "public"  # Always use public schema
         self.schema = "public"  # Fixed to public schema
-        self.connect()
+        self._connection_attempted = False
+
+        # Only auto-connect if explicitly requested
+        if auto_connect:
+            try:
+                self.connect()
+            except Exception as e:
+                logger.warning(f"⚠️ Auto-connect failed: {e}. Connection will be lazy.")
 
     def _resolve_schema(self) -> str:
         # Always return public schema
@@ -56,6 +63,20 @@ class SupabaseDB:
         if search_path:
             kwargs['options'] = f"-c search_path={search_path}"
         return kwargs
+
+    def ensure_connection(self):
+        """Ensure database connection is established. Connect if not already connected."""
+        if self.connection is None and not self._connection_attempted:
+            try:
+                self.connect()
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to establish PostgreSQL connection: {e}")
+                self._connection_attempted = True
+        return self.connection is not None
+
+    def is_connected(self) -> bool:
+        """Check if database connection is active"""
+        return self.connection is not None
 
     def connect(self):
         """Establish connection to Supabase PostgreSQL"""
@@ -95,12 +116,15 @@ class SupabaseDB:
                 self.environment,
                 self.schema,
             )
+            self._connection_attempted = True
 
         except ValueError as ve:
             logger.error(f"❌ Configuration error: {ve}")
+            self._connection_attempted = True
             raise
         except Exception as e:
             logger.error(f"❌ Failed to connect to PostgreSQL: {e}")
+            self._connection_attempted = True
             raise
     
     def serialize_datetime(self, obj):
@@ -2923,9 +2947,10 @@ class SupabaseDB:
             logger.error(f"Error applying approved changes for addendum {addendum_id}: {e}")
             return {'success': False, 'error': str(e)}
 
-# Global database instance
-db = SupabaseDB()
+# Global database instance (lazy connection - won't crash if DB unavailable)
+db = SupabaseDB(auto_connect=False)
 
 def get_db() -> SupabaseDB:
-    """Get database instance"""
+    """Get database instance (ensures connection is established when accessed)"""
+    db.ensure_connection()
     return db

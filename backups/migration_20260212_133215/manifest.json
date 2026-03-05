@@ -1,0 +1,138 @@
+{
+  "timestamp": "2026-02-12T13:32:15.598982",
+  "source": "https://jsfllqcrzqdpozkawkqc.supabase.co",
+  "tables": {
+    "client_status": {
+      "records": 5,
+      "file": "client_status.json"
+    },
+    "maintenance_status": {
+      "records": 7,
+      "file": "maintenance_status.json"
+    },
+    "ai_agents": {
+      "records": 0,
+      "file": null
+    },
+    "profiles": {
+      "records": 1,
+      "file": "profiles.json"
+    },
+    "user_roles": {
+      "records": 0,
+      "file": null
+    },
+    "regions": {
+      "records": 4,
+      "file": "regions.json"
+    },
+    "clients": {
+      "records": 33,
+      "file": "clients.json"
+    },
+    "client_users": {
+      "records": 33,
+      "file": "client_users.json"
+    },
+    "client_documents": {
+      "records": 0,
+      "file": null
+    },
+    "contracts": {
+      "records": 42,
+      "file": "contracts.json"
+    },
+    "contract_documents": {
+      "records": 42,
+      "file": "contract_documents.json"
+    },
+    "contract_addendums": {
+      "records": 19,
+      "file": "contract_addendums.json"
+    },
+    "pending_contract_changes": {
+      "records": 106,
+      "file": "pending_contract_changes.json"
+    },
+    "contract_services": {
+      "records": 0,
+      "file": null
+    },
+    "contract_context": {
+      "records": 0,
+      "file": null
+    },
+    "contract_analyses": {
+      "records": 0,
+      "file": null
+    },
+    "equipment": {
+      "records": 41,
+      "file": "equipment.json"
+    },
+    "maintenances": {
+      "records": 587,
+      "file": "maintenances.json"
+    },
+    "maintenance_checklist": {
+      "records": 1,
+      "file": "maintenance_checklist.json"
+    },
+    "maintenance_checklist_templates": {
+      "records": 2,
+      "file": "maintenance_checklist_templates.json"
+    },
+    "maintenance_checklist_meta": {
+      "records": 0,
+      "file": null
+    },
+    "maintenance_context": {
+      "records": 0,
+      "file": null
+    },
+    "maintenance_status_history": {
+      "records": 0,
+      "file": null
+    },
+    "maintenance_documents": {
+      "records": 0,
+      "file": null
+    },
+    "backlog_recorrente": {
+      "records": 0,
+      "file": null
+    },
+    "chat_sessions": {
+      "records": 13,
+      "file": "chat_sessions.json"
+    },
+    "chat_messages": {
+      "records": 10,
+      "file": "chat_messages.json"
+    },
+    "generated_reports": {
+      "records": 10,
+      "file": "generated_reports.json"
+    },
+    "document_analysis": {
+      "records": 0,
+      "file": null
+    },
+    "ai_predictions": {
+      "records": 0,
+      "file": null
+    },
+    "ai_generated_plans": {
+      "records": 0,
+      "file": null
+    },
+    "agent_executions": {
+      "records": 0,
+      "file": null
+    },
+    "agent_documents": {
+      "records": 0,
+      "file": null
+    }
+  }
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "4ac1256c-b23d-4c99-bd6d-417c81218b50",
+    "session_id": "9147c3eb-5930-43d0-b434-5040e1ca92ba",
+    "role": "user",
+    "content": "o que tem no contrato?",
+    "metadata": null,
+    "user_id": "2c3080a8-67b8-40e5-88b5-e0a2f9dc9bbc",
+    "created_at": "2025-11-06T08:57:14.271-03:00"
+  },
+  {
+    "id": "d74a012a-0f19-4aa4-a304-a023bfacacc3",
+    "session_id": "9147c3eb-5930-43d0-b434-5040e1ca92ba",
+    "role": "assistant",
+    "content": "Olá! Sou o Luminos, seu assistente de IA. É um prazer ajudar você com as informações do seu contrato.\n\nVerifiquei aqui os detalhes do contrato solicitado para a Ação da Cidadania. Abaixo está um resumo claro do que consta em nosso sistema:\n\nEste é um contrato de Locação de Bens Móveis que está atualmente ativo. Isso significa que os serviços estão em plena vigência e os equipamentos locados estão sob nossa gestão.\n\nAqui estão os pontos principais:\n• Número do Contrato: CONT-20251106-1762430026064-LTVZ\n• Cliente: Ação da Cidadania\n• Tipo de Serviço: Locação de Bens Móveis (geradores e equipamentos associados)\n• Valor Total do Contrato: R$ 58.068,00\n• Status Atual: Ativo\n\nSe você precisar de detalhes mais específicos, como a lista de equipamentos, o endereço de instalação, as datas de vigência ou as cláusulas de manutenção, pode me perguntar!\n\nEstou à disposição para o que mais precisar.",
+    "metadata": null,
+    "user_id": "2c3080a8-67b8-40e5-88b5-e0a2f9dc9bbc",
+    "created_at": "2025-11-06T08:57:30.82-03:00"
+  },
+  {
+    "id": "ca0527ba-d15c-434d-b68f-415a204cd47b",
+    "session_id": "15126d33-5501-4310-a5c4-ad9b56c54ad1",
+    "role": "user",
+    "content": "quem e voce?",
+    "metadata": null,
+    "user_id": "2c3080a8-67b8-40e5-88b5-e0a2f9dc9bbc",
+    "created_at": "2025-11-06T08:58:27.324-03:00"
+  },
+  {
+    "id": "a1773df2-9eb5-49b7-92b0-737cef591937",
+    "session_id": "9ebce0e1-880f-4b6d-a4be-8895f0f50ae4",
+    "role": "assistant",
+    "content": "Eu sou o Assistente IA Luminos, especializado em análise de contratos, gestão operacional e suporte estratégico para equipes de manutenção e locação de geradores. Estou aqui para ajudar com suas dúvidas e oferecer orientações claras e acionáveis. Como posso assisti-lo hoje?",
+    "metadata": null,
+    "user_id": "2c3080a8-67b8-40e5-88b5-e0a2f9dc9bbc",
+    "created_at": "2025-11-06T08:58:47.511-03:00"
+  },
+  {
+    "id": "36810140-5f33-4cbb-8264-cc465ddfe005",
+    "session_id": "f9d73c28-56ff-4f0c-9cd9-9e22ed6803b3",
+    "role": "user",
+    "content": "resuma a cláusula 9",
+    "metadata": null,
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-11-06T14:44:34.215-03:00"
+  },
+  {
+    "id": "7e933f0a-5f2a-4c0c-a36b-ace3c4b18407",
+    "session_id": "f9d73c28-56ff-4f0c-9cd9-9e22ed6803b3",
+    "role": "assistant",
+    "content": "Olá! Claro, posso ajudar com isso.\n\nVerifiquei aqui o contrato 2552/2023 firmado com a ARM ARMAZENS GERAIS & LOGISTICA LTDA.\n\nA Cláusula 9ª deste contrato detalha as \"Obrigações da LOCATÁRIA\", ou seja, as responsabilidades que a ARM LOG tem durante todo o período de locação do gerador de 40 kVA.\n\nDe forma resumida, os pontos principais são:\n• Uso Correto: Utilizar o gerador exclusivamente para os fins descritos no contrato, seguindo as especificações técnicas e sem sobrecarregá-lo.\n• Local de Instalação: Preparar e manter um local seguro, nivelado e adequado para a instalação do equipamento, protegendo-o de chuvas, poeira excessiva e com acesso livre para nossa equipe.\n• Fornecimento de Combustível: É responsabilidade da ARM LOG fornecer o combustível (diesel) de boa qualidade e em quantidade suficiente para a operação do gerador.\n• Responsabilidade por Danos: A empresa se responsabiliza por quaisquer danos ao equipamento causados por mau uso, negligência, acidentes ou operação inadequada por parte de seus colaboradores.\n• Acesso para Manutenção: Permitir o livre acesso de nossa equipe técnica ao local para realizar as manutenções preventivas e corretivas necessárias.\n• Proibição de Alterações: Não é permitido remover, alterar, sublocar ou transferir o gerador para outro endereço sem a nossa autorização prévia e por escrito.\n\nEssencialmente, esta cláusula garante que o equipamento seja bem cuidado e operado de forma segura por vocês, o que é fundamental para o bom desempenho e para evitar problemas ou custos adicionais.\n\nSe precisar de mais algum detalhe sobre esses pontos ou quiser analisar outra cláusula, é só me perguntar",
+    "metadata": null,
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-11-06T14:44:53.667-03:00"
+  },
+  {
+    "id": "15f9ef55-1483-43f8-8e15-d5797fb86163",
+    "session_id": "1de50fa2-f7e6-4b69-9bc2-ae593094044c",
+    "role": "user",
+    "content": "pode me dizer quantas e quais manutenções do nosso  plano de manutenção estoa previstas para acontecer nesse periodo de vigencia desse contrato?",
+    "metadata": null,
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-12-04T14:17:55.893-03:00"
+  },
+  {
+    "id": "a2655b4a-1f34-4334-bf0d-45914fe17f46",
+    "session_id": "1de50fa2-f7e6-4b69-9bc2-ae593094044c",
+    "role": "assistant",
+    "content": "Olá! Agradeço o seu contato. Como Assistente Luminos, já verifiquei as informações do seu contrato e tenho os detalhes que você precisa.\n\nPara o contrato CONT-20251204-1764868367876-ZYFS, firmado com o Fundo Municipal de Saúde de Cabo Frio, nosso plano de manutenção prevê um total de 4 intervenções programadas durante o período de vigência.\n\nEssas manutenções são distribuídas de forma estratégica para garantir a máxima confiabilidade dos equipamentos. Abaixo detalho cada uma delas para você:\n• Manutenção Preventiva (1º Trimestre): Focada na inspeção geral, com a troca de óleo e filtros para garantir o bom funcionamento do motor.\n• Manutenção Preventiva (2º Trimestre): Inclui a verificação completa do sistema de arrefecimento e das baterias, componentes críticos para a partida e operação contínua.\n• Manutenção Preventiva (3º Trimestre): Uma nova rodada de inspeção geral com troca de óleo e filtros, seguindo o ciclo de prevenção.\n• Manutenção Preditiva (4º Trimestre): Uma análise mais aprofundada com uso de tecnologia, como análise de vibração e termografia do alternador, para identificar e corrigir possíveis falhas antes que elas aconteçam.\n\nÉ importante lembrar que nossas equipes operacionais entrarão em contato para agendar a data exata de cada visita, sempre com antecedência e buscando o melhor momento para não impactar suas operações.\n\nEspero que esta informação seja útil! Se precisar de mais algum detalhe ou tiver outra dúvida, estou à sua disposição.",
+    "metadata": null,
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-12-04T14:18:16.703-03:00"
+  },
+  {
+    "id": "7bf27130-0a30-4625-afc0-0cce715cb4fc",
+    "session_id": "4bd1a6f0-2203-4c81-b1f1-ed1609b9ed69",
+    "role": "user",
+    "content": "Me fale sobre as obrigações do contrato",
+    "metadata": null,
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-12-16T14:07:41.991-03:00"
+  },
+  {
+    "id": "64287cbe-afcf-40ca-9a60-4d60bcb84be1",
+    "session_id": "4bd1a6f0-2203-4c81-b1f1-ed1609b9ed69",
+    "role": "assistant",
+    "content": "Olá! Com certeza, verifiquei os detalhes do contrato 2928/2024 firmado com a ASSOCIAÇÃO DE ADQUIRENTES DO EDIFÍCIO MARES.\n\nEste é um contrato de prestação de serviços focado em manter o(s) seu(s) gerador(es) em perfeito estado de funcionamento. Para que essa parceria funcione bem, existem responsabilidades claras tanto da nossa parte quanto da sua.\n\nVou detalhar as principais obrigações de cada lado para você.\n\nNossas Principais Obrigações (Como Prestadora de Serviço)\n\nNosso compromisso é garantir a confiabilidade do seu equipamento. Para isso, nossas responsabilidades incluem:\n• Manutenção Preventiva Mensal: Realizar visitas técnicas programadas todos os meses para inspecionar, testar e executar as rotinas de manutenção que previnem falhas.\n• Atendimento Corretivo: Atender aos seus chamados emergenciais em caso de falha ou parada do equipamento. Nossa equipe técnica irá diagnosticar o problema e iniciar o reparo.\n• Suporte Técnico: Oferecer suporte por telefone ou outros canais para tirar dúvidas e fornecer orientações sobre o funcionamento do gerador.\n• Relatórios Técnicos: Após cada visita (preventiva ou corretiva), fornecer um relatório detalhando os serviços executados, as condições do equipamento e eventuais recomendações.\n• Mão de Obra Qualificada: Disponibilizar técnicos especializados e devidamente treinados para realizar todos os serviços no gerador.\n• Orçamentos para Peças: Caso seja necessária a troca de peças ou um reparo mais complexo não coberto pelo valor mensal, nossa obrigação é fornecer um orçamento claro e detalhado para sua aprovação.\n\nPrincipais Obrigações da ASSOCIAÇÃO (Como Contratante)\n\nPara que possamos executar nosso trabalho com eficiência e segurança, contamos com as seguintes responsabilidades da sua parte:\n• Livre Acesso: Garantir que nossa equipe técnica tenha acesso seguro e desimpedido ao local onde o gerador está instalado, nas datas e horários agendados.\n• Condições do Local: Manter a área do gerador limpa, bem iluminada e livre de materiais que possam atrapalhar a manutenção ou oferecer riscos.\n• Pagamento em Dia: Efetuar o pagamento do valor mensal do contrato (R$ 11.400,00) nas datas de vencimento acordadas.\n• Comunicação de Falhas: Informar nossa equipe imediatamente ao notar qualquer anormalidade, alarme ou falha no funcionamento do gerador.\n• Abastecimento: Manter o tanque de combustível do gerador com um nível adequado para a realização dos testes e para a operação em caso de necessidade.\n\nO objetivo de tudo isso é criar uma parceria transparente, onde todos sabem seu papel para garantir que o gerador do Edifício Mares esteja sempre pronto para operar quando for preciso.\n\nSe tiver qualquer outra dúvida sobre um ponto específico do contrato, é só me perguntar! Estou aqui para ajudar.",
+    "metadata": null,
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "created_at": "2025-12-16T14:08:03.763-03:00"
+  }
+]

@@ -1,0 +1,284 @@
+{
+  "timestamp": "2026-02-12T13:32:39.291530",
+  "total_source": 956,
+  "total_migrated": 323,
+  "tables": [
+    {
+      "table": "client_status",
+      "source_count": 5,
+      "migrated": 0,
+      "errors": [
+        "Falha ao inserir dados"
+      ],
+      "success": false
+    },
+    {
+      "table": "maintenance_status",
+      "source_count": 7,
+      "migrated": 7,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "ai_agents",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "profiles",
+      "source_count": 1,
+      "migrated": 0,
+      "errors": [
+        "Falha ao inserir dados"
+      ],
+      "success": false
+    },
+    {
+      "table": "user_roles",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "regions",
+      "source_count": 4,
+      "migrated": 0,
+      "errors": [
+        "Falha ao inserir dados"
+      ],
+      "success": false
+    },
+    {
+      "table": "clients",
+      "source_count": 33,
+      "migrated": 33,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "client_users",
+      "source_count": 33,
+      "migrated": 0,
+      "errors": [
+        "Falha ao inserir dados"
+      ],
+      "success": false
+    },
+    {
+      "table": "client_documents",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "contracts",
+      "source_count": 42,
+      "migrated": 42,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "contract_documents",
+      "source_count": 42,
+      "migrated": 42,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "contract_addendums",
+      "source_count": 19,
+      "migrated": 19,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "pending_contract_changes",
+      "source_count": 106,
+      "migrated": 106,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "contract_services",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "contract_context",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "contract_analyses",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "equipment",
+      "source_count": 41,
+      "migrated": 41,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "maintenances",
+      "source_count": 587,
+      "migrated": 0,
+      "errors": [
+        "Falha ao inserir dados"
+      ],
+      "success": false
+    },
+    {
+      "table": "maintenance_checklist",
+      "source_count": 1,
+      "migrated": 0,
+      "errors": [
+        "Falha ao inserir dados"
+      ],
+      "success": false
+    },
+    {
+      "table": "maintenance_checklist_templates",
+      "source_count": 2,
+      "migrated": 0,
+      "errors": [
+        "Falha ao inserir dados"
+      ],
+      "success": false
+    },
+    {
+      "table": "maintenance_checklist_meta",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "maintenance_context",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "maintenance_status_history",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "maintenance_documents",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "backlog_recorrente",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "chat_sessions",
+      "source_count": 13,
+      "migrated": 13,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "chat_messages",
+      "source_count": 10,
+      "migrated": 10,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "generated_reports",
+      "source_count": 10,
+      "migrated": 10,
+      "errors": [],
+      "success": true
+    },
+    {
+      "table": "document_analysis",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "ai_predictions",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "ai_generated_plans",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "agent_executions",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    },
+    {
+      "table": "agent_documents",
+      "source_count": 0,
+      "migrated": 0,
+      "errors": [
+        "Arquivo de backup n\u00e3o encontrado"
+      ],
+      "success": false
+    }
+  ]
+}

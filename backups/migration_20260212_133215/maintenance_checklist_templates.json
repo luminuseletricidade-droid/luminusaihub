@@ -1,0 +1,86 @@
+[
+  {
+    "id": "b451c784-a96f-4bf6-a22a-3cb55ef821d7",
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "name": "preventiva",
+    "description": "xpto",
+    "maintenance_type": "Preventiva",
+    "items": [
+      {
+        "id": "item-1762288955162-dsdb92e",
+        "text": "1",
+        "required": false
+      },
+      {
+        "id": "item-1762288955162-fkymvea",
+        "text": "2",
+        "required": false
+      },
+      {
+        "id": "item-1762288955162-l50fihk",
+        "text": "3",
+        "required": false
+      },
+      {
+        "id": "item-1762288955162-7sakh43",
+        "text": "4",
+        "required": false
+      },
+      {
+        "id": "item-1762288955162-ogs42m3",
+        "text": "5",
+        "required": false
+      }
+    ],
+    "is_active": true,
+    "created_at": "2025-11-04T17:42:31.918523-03:00",
+    "updated_at": "2025-11-04T17:42:31.918523-03:00"
+  },
+  {
+    "id": "48e5582a-06a1-474f-8303-b7c832a058df",
+    "user_id": "4e87b6f5-5564-41c6-b97b-4b6c0fc6e0d1",
+    "name": "Limpeza de tanque",
+    "description": "jkheafnkdnfkdljakljg",
+    "maintenance_type": "Limpeza de Tanque",
+    "items": [
+      {
+        "id": "item-1764869861976-gepa6fh",
+        "text": "Drenar combustiverl",
+        "required": false
+      },
+      {
+        "id": "item-1764869861976-dyy2lem",
+        "text": "DEscartar diesel",
+        "required": false
+      },
+      {
+        "id": "item-1764869861976-sbb3ixg",
+        "text": "Rrealziar limpexza",
+        "required": false
+      },
+      {
+        "id": "item-1764869861976-lra5dt0",
+        "text": "Aplicar etanol",
+        "required": false
+      },
+      {
+        "id": "item-1764869861976-85eu66m",
+        "text": "Secar",
+        "required": false
+      },
+      {
+        "id": "item-1764869861976-cowngv6",
+        "text": "reabastecer",
+        "required": false
+      },
+      {
+        "id": "item-1764869861976-h04mzjt",
+        "text": "Trocar dos filtros de combustivrel",
+        "required": true
+      }
+    ],
+    "is_active": true,
+    "created_at": "2025-12-04T14:37:42.19966-03:00",
+    "updated_at": "2025-12-04T14:37:42.19966-03:00"
+  }
+]

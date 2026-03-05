@@ -1,0 +1,79 @@
+[
+  {
+    "id": "b4044bbe-ac57-4dc3-8332-5f250519b6c0",
+    "name": "pending",
+    "created_at": "2025-12-19T12:07:52.040306-03:00",
+    "description": "Manutenção sem data definida",
+    "color": "#9ca3af",
+    "icon": "clock",
+    "order_index": 1,
+    "is_active": true,
+    "updated_at": "2025-12-19T12:07:52.040306-03:00"
+  },
+  {
+    "id": "09dfc00e-5913-4c95-bd57-04d2a172ca35",
+    "name": "scheduled",
+    "created_at": "2025-12-19T12:07:52.040306-03:00",
+    "description": "Manutenção agendada aguardando confirmação",
+    "color": "#3b82f6",
+    "icon": "calendar",
+    "order_index": 2,
+    "is_active": true,
+    "updated_at": "2025-12-19T12:07:52.040306-03:00"
+  },
+  {
+    "id": "95c57af4-1fba-4122-9a0b-cb97ac167f0f",
+    "name": "confirmed",
+    "created_at": "2025-12-19T12:07:52.040306-03:00",
+    "description": "Manutenção confirmada pelo cliente",
+    "color": "#22c55e",
+    "icon": "calendar-check",
+    "order_index": 3,
+    "is_active": true,
+    "updated_at": "2025-12-19T12:07:52.040306-03:00"
+  },
+  {
+    "id": "1bd3bbc8-097f-491e-97df-2f0a9932dca6",
+    "name": "in_progress",
+    "created_at": "2025-12-19T12:07:52.040306-03:00",
+    "description": "Manutenção em andamento",
+    "color": "#f59e0b",
+    "icon": "play-circle",
+    "order_index": 4,
+    "is_active": true,
+    "updated_at": "2025-12-19T12:07:52.040306-03:00"
+  },
+  {
+    "id": "47d0b113-c49e-40ac-8742-9791c24e7887",
+    "name": "completed",
+    "created_at": "2025-12-19T12:07:52.040306-03:00",
+    "description": "Manutenção concluída",
+    "color": "#10b981",
+    "icon": "check-circle",
+    "order_index": 5,
+    "is_active": true,
+    "updated_at": "2025-12-19T12:07:52.040306-03:00"
+  },
+  {
+    "id": "b17f25d4-f62d-4cac-a538-626c1cd0da6f",
+    "name": "cancelled",
+    "created_at": "2025-12-19T12:07:52.040306-03:00",
+    "description": "Manutenção cancelada",
+    "color": "#ef4444",
+    "icon": "x-circle",
+    "order_index": 6,
+    "is_active": true,
+    "updated_at": "2025-12-19T12:07:52.040306-03:00"
+  },
+  {
+    "id": "c1de2fdc-fc4c-42eb-bdec-0197626cef65",
+    "name": "overdue",
+    "created_at": "2025-12-19T12:07:52.040306-03:00",
+    "description": "Manutenção atrasada",
+    "color": "#dc2626",
+    "icon": "alert-circle",
+    "order_index": 7,
+    "is_active": true,
+    "updated_at": "2025-12-19T12:07:52.040306-03:00"
+  }
+]
