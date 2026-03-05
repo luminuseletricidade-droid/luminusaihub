@@ -54,6 +54,20 @@ class Config:
         # Clean up the value
         env_val = env_val.strip()
 
+        # Try to parse as JSON first (most reliable)
+        try:
+            origins = json.loads(env_val)
+            if isinstance(origins, list):
+                # Filter and validate each origin
+                valid_origins = [
+                    o.strip().rstrip('/') for o in origins
+                    if isinstance(o, str) and o.strip().startswith('http')
+                ]
+                if valid_origins:
+                    return valid_origins
+        except json.JSONDecodeError:
+            pass  # Fall through to manual parsing
+
         # Remove outer brackets if present: ['...'] or ["..."]
         if env_val.startswith('[') and env_val.endswith(']'):
             env_val = env_val[1:-1]
@@ -62,7 +76,7 @@ class Config:
         origins = []
         for part in env_val.split(','):
             # Strip whitespace and quotes (both single and double)
-            origin = part.strip().strip("'\"")
+            origin = part.strip().strip("'\"").rstrip('/')
             if origin and origin.startswith('http'):
                 origins.append(origin)
 
